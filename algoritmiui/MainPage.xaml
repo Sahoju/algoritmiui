@@ -11,7 +11,9 @@
         <TextBlock x:Name="Millisecs" HorizontalAlignment="Left" Margin="310,15,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="27" Width="448"/>
         <Grid HorizontalAlignment="Left" Height="720" VerticalAlignment="Top" Width="1280">
             <Canvas x:Name="Canvas_Graph" HorizontalAlignment="Left" Height="500" Margin="10,53,0,0" VerticalAlignment="Top" Width="700"/>
-            <TextBlock x:Name="TxtBlock_Results" HorizontalAlignment="Left" Height="105" Margin="10,558,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="700"/>
+            <TextBlock x:Name="TxtBlock_Results" HorizontalAlignment="Left" Height="356" Margin="10,558,0,-194" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="230"/>
+            <Canvas x:Name="Canvas_GraphBase" HorizontalAlignment="Left" Height="500" Margin="10,53,0,0" VerticalAlignment="Top" Width="700"/>
+            <TextBlock x:Name="TxtBlock_Results2" HorizontalAlignment="Left" Height="356" Margin="245,558,0,-194" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="230"/>
         </Grid>
         <TextBox x:Name="TxtBox_InputNum" HorizontalAlignment="Left" Height="26" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="99"/>
         <Button x:Name="Btn_BubbleSort" Content="Bubble sort" HorizontalAlignment="Left" Margin="116,10,0,0" VerticalAlignment="Top" Click="Btn_BubbleSort_Click"/>

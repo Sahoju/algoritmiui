@@ -32,15 +32,18 @@ namespace algoritmiui {
 
         private List<Line> points = new List<Line>();
         private List<Line> guidelines = new List<Line>();
+        private List<Ellipse> spots = new List<Ellipse>();
+        private List<Line> lines = new List<Line>();
+        private Random rand = new Random();
+        private Stopwatch stopwatch = new Stopwatch();
 
         private int[] Generate() {
-            Random rand = new Random();
-            Stopwatch stopwatch = new Stopwatch();
             
             if (int.TryParse(TxtBox_InputNum.Text, out int amount)) {
                 int[] intarray = new int[amount];
 
                 // generate numbers between 0 and 100
+                stopwatch.Reset();
                 stopwatch.Start();
                 for (int i = 0; i < amount; i++) {
                     intarray[i] = rand.Next(0, 100);
@@ -55,15 +58,30 @@ namespace algoritmiui {
             }
         } // private int[] Generate
 
+        private void WriteTestData(int[] dataTime, int[] dataCount) {
+            TxtBlock_Results.Text = "Time:";
+            TxtBlock_Results2.Text = "Count:";
+
+            for (int i = 0; i < 10; i++) {
+                TxtBlock_Results.Text += "\n" + i + ": " + dataTime[i] + " ms";
+                TxtBlock_Results2.Text += "\n" + i + ": " + dataCount[i];
+            }
+        }
+
         private void Btn_BubbleSort_Click(object sender, RoutedEventArgs e) {
-            Stopwatch stopwatch = new Stopwatch();
             int[] intarray = Generate();
             int[] dataTime = new int[10];
             int[] dataCount = new int[10];
             int dataLoc = 0;
             int temp;
 
+            // clear the canvas of previous graph
+            spots.Clear();
+            lines.Clear();
+            Canvas_Graph.Children.Clear();
+
             // bubble sort
+            stopwatch.Reset();
             stopwatch.Start();
             for (int i = 0; i < intarray.Length - 2; i++) {
                 // get data 10 times during a sort
@@ -86,6 +104,9 @@ namespace algoritmiui {
             stopwatch.Stop();
             Millisecs.Text += " Sorted: " + stopwatch.ElapsedMilliseconds + " ms.";
 
+            WriteTestData(dataTime, dataCount);
+
+            /*
             TxtBlock_Results.Text = "dataTime: ";
             for (int i = 0; i < 10; i++) {
                 TxtBlock_Results.Text += dataTime[i] + ", ";
@@ -95,7 +116,7 @@ namespace algoritmiui {
             for (int i = 0; i < 10; i++) {
                 TxtBlock_Results.Text += dataCount[i] + ", ";
             }
-
+            */
 
             DrawPoints(intarray.Length, dataTime, dataCount);
         } // private void Btn_BubbleSort_Click
@@ -103,16 +124,19 @@ namespace algoritmiui {
         private void Btn_QuickSort_Click(object sender, RoutedEventArgs e) {
             Stopwatch stopwatch = new Stopwatch();
             int[] intarray = Generate();
-            
+
             // Quick sort
+            int count = 0;
             stopwatch.Start();
-            QuickSort(intarray, 0, intarray.Length - 1);
+            count = QuickSort(intarray, 0, intarray.Length - 1, count);
             stopwatch.Stop();
+            
+            TxtBlock_Results.Text = "Count: " + count;
 
             Millisecs.Text += " Sorted: " + stopwatch.ElapsedMilliseconds + " ms.";
-        }
+        } // private void Btn_QuickSort_Click
 
-        private void QuickSort(int[] intarray, int left, int right) {
+        private int QuickSort(int[] intarray, int left, int right, int count) {
             int i = left, j = right;
             int pivot = intarray[(left + right) / 2];
 
@@ -144,14 +168,17 @@ namespace algoritmiui {
                 }
             }
 
+            count++;
             // Recursive calls
             if (left < j) {
-                QuickSort(intarray, left, j);
+                count = QuickSort(intarray, left, j, count);
             }
 
             if (i < right) {
-                QuickSort(intarray, i, right);
+                count = QuickSort(intarray, i, right, count);
             }
+
+            return count;
         } // private void QuickSort
 
         private void DrawBlank() {
@@ -176,36 +203,40 @@ namespace algoritmiui {
             x_axle.StrokeThickness = 2;
 
             // draw line on canvas
-            Canvas_Graph.Children.Add(y_axle);
-            Canvas_Graph.Children.Add(x_axle);
+            Canvas_GraphBase.Children.Add(y_axle);
+            Canvas_GraphBase.Children.Add(x_axle);
 
             // generate points in the axles
             // i = 1 to not include origin in the calculations
             // i <= 9 because no point needs to be generated for origin and the tip
 
-            // x axle
+            // x-axle
             for (int i = 1; i <= 9; i++) {
                 Line line = new Line();
+                // 69 is the space between the points in the x-axle
+                // + 10 is from the empty space between canvas' left side and the y-axle
                 line.X1 = 69 * i + 10;
                 line.X2 = 69 * i + 10;
                 line.Y1 = 485;
                 line.Y2 = 495;
                 line.Stroke = new SolidColorBrush(Colors.Black);
                 line.StrokeThickness = 2;
-                Canvas_Graph.Children.Add(line);
+                Canvas_GraphBase.Children.Add(line);
                 points.Add(line);
             }
 
             // y axle
             for (int i = 1; i <= 9; i++) {
                 Line line = new Line();
+                // the points on the y-axle are 5 pixels far from the left edge of the canvas
+                // the points are also 10 pixels long
                 line.X1 = 5;
                 line.X2 = 15;
                 line.Y1 = 49 * i;
                 line.Y2 = 49 * i;
                 line.Stroke = new SolidColorBrush(Colors.Black);
                 line.StrokeThickness = 2;
-                Canvas_Graph.Children.Add(line);
+                Canvas_GraphBase.Children.Add(line);
                 points.Add(line);
             }
 
@@ -222,7 +253,7 @@ namespace algoritmiui {
                 line.StrokeThickness = 1;
                 // need to create a new instance of DoubleCollection to be able to add dashed lines
                 line.StrokeDashArray = new DoubleCollection() { 3.5 };
-                Canvas_Graph.Children.Add(line);
+                Canvas_GraphBase.Children.Add(line);
                 guidelines.Add(line);
             }
 
@@ -236,23 +267,60 @@ namespace algoritmiui {
                 line.Stroke = new SolidColorBrush(Colors.Black);
                 line.StrokeThickness = 1;
                 line.StrokeDashArray = new DoubleCollection() { 3.5 };
-                Canvas_Graph.Children.Add(line);
+                Canvas_GraphBase.Children.Add(line);
                 guidelines.Add(line);
             }
         } // private void DrawBlank
 
         private void DrawPoints(int arrayLength, int[] dataTime, int[] dataCount) {
-            Ellipse point = new Ellipse();
-            point.Width = 5;
-            point.Height = 5;
-            point.Fill = new SolidColorBrush(Colors.SteelBlue);
+            double[] x = new double[10];
+            double[] y = new double[10];
 
-            Canvas.SetTop(point, 436);
-            Canvas.SetLeft(point, 74);
+            for (int i = 1; i <= 10; i++) {
+                Ellipse point = new Ellipse();
+                point.Width = 8;
+                point.Height = 8;
+                point.Fill = new SolidColorBrush(Colors.SteelBlue);
+                
+                // determining the position in the x-axle where the point will be drawn
+                // see lines 190 and 205 for more details on the numbers
+                x[i - 1] = 69 * (i - 1) + 10 - 4;
 
-            Canvas_Graph.Children.Add(point);
+                // dividing the point's time elapsed with full time elapsed
+                // multiplying the percentage with 490 - 4
+                // subtracting this all from 500
+                // 4 comes from the radius of the ellipse
+                // with this we can put the point to its correspondent place in the y-axle
+                // casts are necessary, no idea why it says they are redundant
+                y[i - 1] = 490 - ((double)dataTime[i - 1] / (double)stopwatch.ElapsedMilliseconds) * 490 - 4;
 
+                Canvas.SetTop(point, y[i - 1]);
+                if (i == 1) {
+                    Canvas.SetLeft(point, 0 + 10 - 4);
+                }
+                else {
+                    Canvas.SetLeft(point, x[i - 1]);
+                }
+                Canvas_Graph.Children.Add(point);
+                spots.Add(point);
+            }
 
-        }
+            DrawLines(x, y);
+        } // private void DrawPoints
+
+        private void DrawLines(double[] x, double[] y) {
+            // i < 9 because there will only be 9 lines
+            for(int i = 0; i < 9; i++) {
+                Line line = new Line();
+                line.X1 = x[i] + 4;
+                line.X2 = x[i + 1] + 4;
+                line.Y1 = y[i] + 4;
+                line.Y2 = y[i + 1] + 4;
+                line.Stroke = new SolidColorBrush(Colors.SteelBlue);
+                line.StrokeThickness = 2;
+                Canvas_Graph.Children.Add(line);
+                lines.Add(line);
+            }
+        } // private void DrawLines
     } // public sealed partial class MainPage : Page
 } // namespace algoritmiui

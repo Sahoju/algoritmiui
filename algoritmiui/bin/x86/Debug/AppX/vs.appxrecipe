@@ -31,13 +31,13 @@
     <AppXManifest Include="D:\L4929\algoritmit\algoritmiui\algoritmiui\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-03-26T16:35:20.666</Modified>
+      <Modified>2018-03-27T16:55:46.461</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="D:\L4929\algoritmit\algoritmiui\algoritmiui\bin\x86\Debug\algoritmiui.exe">
       <PackagePath>entrypoint\algoritmiui.exe</PackagePath>
-      <Modified>2018-03-26T16:35:20.466</Modified>
+      <Modified>2018-03-27T16:55:46.045</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\L4929\.nuget\packages\Microsoft.CSharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -544,11 +544,11 @@
     <AppxPackagedFile Include="D:\L4929\algoritmit\algoritmiui\algoritmiui\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-03-26T14:51:51.159</Modified>
+      <Modified>2018-03-27T16:55:46.336</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\L4929\algoritmit\algoritmiui\algoritmiui\bin\x86\Debug\Core\algoritmiui.exe">
       <PackagePath>algoritmiui.exe</PackagePath>
-      <Modified>2018-03-26T16:35:20.665</Modified>
+      <Modified>2018-03-27T16:55:46.459</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
