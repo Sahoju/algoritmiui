@@ -28,14 +28,27 @@ namespace algoritmiui {
 
             // initiate blank graph
             DrawBlank();
+
+            // add the first point in the origin
+            Ellipse ellipse = new Ellipse();
+            ellipse.Height = 8;
+            ellipse.Width = 8;
+            ellipse.Fill = new SolidColorBrush(Colors.Black);
+            Canvas.SetTop(ellipse, 486);
+            Canvas.SetLeft(ellipse, 6);
+            Canvas_Graph.Children.Add(ellipse);
         }
 
         private List<Line> points = new List<Line>();
         private List<Line> guidelines = new List<Line>();
-        private List<Ellipse> spots = new List<Ellipse>();
+        private List<TextBlock> xMarkers = new List<TextBlock>();
+        private List<TextBlock> yMarkers = new List<TextBlock>();
+        private List<Marker> Points = new List<Marker>();
         private List<Line> lines = new List<Line>();
         private Random rand = new Random();
         private Stopwatch stopwatch = new Stopwatch();
+        private int sizeLargest = 0;
+        private int countLargest = 0;
 
         private int[] Generate() {
             
@@ -58,25 +71,12 @@ namespace algoritmiui {
             }
         } // private int[] Generate
 
-        private void WriteTestData(int[] dataTime, int[] dataCount) {
-            TxtBlock_Results.Text = "Time:";
-            TxtBlock_Results2.Text = "Count:";
-
-            for (int i = 0; i < 10; i++) {
-                TxtBlock_Results.Text += "\n" + i + ": " + dataTime[i] + " ms";
-                TxtBlock_Results2.Text += "\n" + i + ": " + dataCount[i];
-            }
-        }
-
         private void Btn_BubbleSort_Click(object sender, RoutedEventArgs e) {
             int[] intarray = Generate();
-            int[] dataTime = new int[10];
-            int[] dataCount = new int[10];
-            int dataLoc = 0;
+            int count = 0;
             int temp;
 
             // clear the canvas of previous graph
-            spots.Clear();
             lines.Clear();
             Canvas_Graph.Children.Clear();
 
@@ -84,14 +84,6 @@ namespace algoritmiui {
             stopwatch.Reset();
             stopwatch.Start();
             for (int i = 0; i < intarray.Length - 2; i++) {
-                // get data 10 times during a sort
-                // Math.Round is used to get an int from double (intarray.Length is always - 2 from its original length)
-                // gets both time and count of iterations
-                if (i % (Math.Round(intarray.Length / 10.0, 1)) == 0) {
-                    dataTime[dataLoc] = (int)stopwatch.ElapsedMilliseconds;
-                    dataCount[dataLoc] = i;
-                    dataLoc++;
-                }
                 for (int j = 0; j < intarray.Length - 2; j++) {
                     if (intarray[j] > intarray[j + 1]) {
                         temp = intarray[j + 1];
@@ -99,26 +91,18 @@ namespace algoritmiui {
                         intarray[j] = temp;
                     }
                 }
+                // count the amount of iterations
+                count++;
             }
+
+            // create a new marker with the size of the array, iteration count and sort type
+            Marker marker = new Marker(intarray.Length, count, 0);
+            Points.Add(marker);
+            DrawMarker(marker);
+            DrawLines();
 
             stopwatch.Stop();
             Millisecs.Text += " Sorted: " + stopwatch.ElapsedMilliseconds + " ms.";
-
-            WriteTestData(dataTime, dataCount);
-
-            /*
-            TxtBlock_Results.Text = "dataTime: ";
-            for (int i = 0; i < 10; i++) {
-                TxtBlock_Results.Text += dataTime[i] + ", ";
-            }
-
-            TxtBlock_Results.Text += "\ndataCount: ";
-            for (int i = 0; i < 10; i++) {
-                TxtBlock_Results.Text += dataCount[i] + ", ";
-            }
-            */
-
-            DrawPoints(intarray.Length, dataTime, dataCount);
         } // private void Btn_BubbleSort_Click
 
         private void Btn_QuickSort_Click(object sender, RoutedEventArgs e) {
@@ -130,8 +114,12 @@ namespace algoritmiui {
             stopwatch.Start();
             count = QuickSort(intarray, 0, intarray.Length - 1, count);
             stopwatch.Stop();
-            
-            TxtBlock_Results.Text = "Count: " + count;
+
+            // create a new marker with the size of the array, recursion count and sort type
+            Marker marker = new Marker(intarray.Length, count, 1);
+            Points.Add(marker);
+            DrawMarker(marker);
+            DrawLines();
 
             Millisecs.Text += " Sorted: " + stopwatch.ElapsedMilliseconds + " ms.";
         } // private void Btn_QuickSort_Click
@@ -182,6 +170,30 @@ namespace algoritmiui {
         } // private void QuickSort
 
         private void DrawBlank() {
+            // create text blocks
+            for (int i = 0; i < 10; i++) {
+                TextBlock textblock = new TextBlock();
+                textblock.Height = 16;
+                textblock.Width = 60;
+                textblock.FontSize = 12;
+                textblock.Margin = new Thickness(0, 0, 0, 30);
+                textblock.Text = "0";
+                Grid.SetRow(textblock, i);
+                yMarkers.Add(textblock);
+                Grid_MarkerTextY.Children.Add(textblock);
+            }
+            for (int i = 0; i < 10; i++) {
+                TextBlock textblock = new TextBlock();
+                textblock.Height = 16;
+                textblock.Width = 60;
+                textblock.FontSize = 12;
+                textblock.Margin = new Thickness(5, 0, 0, 0);
+                textblock.Text = "0";
+                Grid.SetColumn(textblock, i);
+                xMarkers.Add(textblock);
+                Grid_MarkerTextX.Children.Add(textblock);
+            }
+
             // create axles
             Line y_axle = new Line();
             Line x_axle = new Line();
@@ -272,55 +284,111 @@ namespace algoritmiui {
             }
         } // private void DrawBlank
 
-        private void DrawPoints(int arrayLength, int[] dataTime, int[] dataCount) {
-            double[] x = new double[10];
-            double[] y = new double[10];
+        private void DrawMarker(Marker marker) {
+            // checks if the size of the array is the largest so far
+            if (marker.Size > sizeLargest) {
+                sizeLargest = marker.Size;
+            }
+            // checks if the count of iterations/recursions is the largest so far
+            if (marker.Count > countLargest) {
+                countLargest = marker.Count;
+            }
+            // AdjustGraph() needs to be first because it clears the previous ellipses
+            AdjustGraph();
+        }
 
-            for (int i = 1; i <= 10; i++) {
-                Ellipse point = new Ellipse();
-                point.Width = 8;
-                point.Height = 8;
-                point.Fill = new SolidColorBrush(Colors.SteelBlue);
-                
-                // determining the position in the x-axle where the point will be drawn
-                // see lines 190 and 205 for more details on the numbers
-                x[i - 1] = 69 * (i - 1) + 10 - 4;
+        private void AdjustGraph() {
+            int i = 1;
+            int data = 0;
+            // changing texts of each x marker
+            foreach(var textblock in xMarkers) {
+                data = (sizeLargest / 10) * i;
+                textblock.Text = data.ToString();
+                i++;
+            }
+            i = yMarkers.Count();
 
-                // dividing the point's time elapsed with full time elapsed
-                // multiplying the percentage with 490 - 4
-                // subtracting this all from 500
-                // 4 comes from the radius of the ellipse
-                // with this we can put the point to its correspondent place in the y-axle
-                // casts are necessary, no idea why it says they are redundant
-                y[i - 1] = 490 - ((double)dataTime[i - 1] / (double)stopwatch.ElapsedMilliseconds) * 490 - 4;
+            // changing texts of each y markers
+            foreach(var textblock in yMarkers) {
+                data = (countLargest / 10) * i;
+                textblock.Text = data.ToString();
+                i--;
+            }
+            
+            Canvas_Graph.Children.Clear();
 
-                Canvas.SetTop(point, y[i - 1]);
-                if (i == 1) {
-                    Canvas.SetLeft(point, 0 + 10 - 4);
+            foreach(var marker in Points) {
+                marker.LocY = -500 * ((double)marker.Count / (double)countLargest) + 500;
+                marker.LocX = 700 * ((double)marker.Size / (double)sizeLargest);
+
+                Ellipse ellipse = new Ellipse();
+                ellipse.Width = 8;
+                ellipse.Height = 8;
+
+                if(marker.Type == 0) {
+                    ellipse.Fill = new SolidColorBrush(Colors.SteelBlue);
+                } else {
+                    ellipse.Fill = new SolidColorBrush(Colors.OrangeRed);
+                }
+                Canvas.SetTop(ellipse, marker.LocY);
+                Canvas.SetLeft(ellipse, marker.LocX);
+                Canvas_Graph.Children.Add(ellipse);
+            }
+        }
+        
+        private void DrawLines() {
+            bool bubbleFirst = true;
+            bool quickFirst = true;
+            double bubblePreviousLocX = 0;
+            double bubblePreviousLocY = 0;
+            double quickPreviousLocX = 0;
+            double quickPreviousLocY = 0;
+
+            foreach (var marker in Points) {
+                Line line = new Line();
+                if (marker.Type == 0 && bubbleFirst == true) {
+                    line.X1 = 10;
+                    line.Y1 = 490;
+                    line.X2 = marker.LocX + 4;
+                    line.Y2 = marker.LocY + 4;
+                    bubblePreviousLocX = marker.LocX;
+                    bubblePreviousLocY = marker.LocY;
+                    line.Stroke = new SolidColorBrush(Colors.SteelBlue);
+                    bubbleFirst = false;
+                }
+                else if (marker.Type == 1 && quickFirst == true) {
+                    line.X1 = 10;
+                    line.Y1 = 490;
+                    line.X2 = marker.LocX + 4;
+                    line.Y2 = marker.LocY + 4;
+                    quickPreviousLocX = marker.LocX;
+                    quickPreviousLocY = marker.LocY;
+                    line.Stroke = new SolidColorBrush(Colors.OrangeRed);
+                    quickFirst = false;
+                }
+                else if (marker.Type == 0) {
+                    line.X1 = bubblePreviousLocX + 4;
+                    line.Y1 = bubblePreviousLocY + 4;
+                    line.X2 = marker.LocX + 4;
+                    line.Y2 = marker.LocY + 4;
+                    bubblePreviousLocX = marker.LocX;
+                    bubblePreviousLocY = marker.LocY;
+                    line.Stroke = new SolidColorBrush(Colors.SteelBlue);
                 }
                 else {
-                    Canvas.SetLeft(point, x[i - 1]);
+                    line.X1 = quickPreviousLocX + 4;
+                    line.Y1 = quickPreviousLocY + 4;
+                    line.X2 = marker.LocX + 4;
+                    line.Y2 = marker.LocY + 4;
+                    quickPreviousLocX = marker.LocX;
+                    quickPreviousLocY = marker.LocY;
+                    line.Stroke = new SolidColorBrush(Colors.OrangeRed);
                 }
-                Canvas_Graph.Children.Add(point);
-                spots.Add(point);
-            }
 
-            DrawLines(x, y);
-        } // private void DrawPoints
-
-        private void DrawLines(double[] x, double[] y) {
-            // i < 9 because there will only be 9 lines
-            for(int i = 0; i < 9; i++) {
-                Line line = new Line();
-                line.X1 = x[i] + 4;
-                line.X2 = x[i + 1] + 4;
-                line.Y1 = y[i] + 4;
-                line.Y2 = y[i + 1] + 4;
-                line.Stroke = new SolidColorBrush(Colors.SteelBlue);
                 line.StrokeThickness = 2;
                 Canvas_Graph.Children.Add(line);
-                lines.Add(line);
             }
-        } // private void DrawLines
+        } // private void DrawLine
+
     } // public sealed partial class MainPage : Page
 } // namespace algoritmiui
