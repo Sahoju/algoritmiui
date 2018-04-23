@@ -20,15 +20,28 @@ namespace algoritmiui {
     class Marker {
         public int Count { get; set; }
         public int Size { get; set; }
-        // 0 = Bubble sort, 1 = Quick sort
-        public int Type { get; set; }
+        public long Time { get; set; }
+        public Color Colon { get; set; }
         public double LocX { get; set; }
         public double LocY { get; set; }
 
-        public Marker(int size, int count, int type) {
+        // constructor for largest size, count and time
+        public Marker(int size, int count, long time) {
             Size = size;
             Count = count;
-            Type = type;
+            Time = time;
+        }
+
+        // constructor for just count
+        public Marker(int count) {
+            Count = count;
+        }
+
+        public Marker(int size, int count, long time, Color rectum) {
+            Size = size;
+            Count = count;
+            Time = time;
+            Colon = rectum;
         }
     }
 }

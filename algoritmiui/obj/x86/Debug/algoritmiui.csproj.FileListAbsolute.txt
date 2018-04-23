@@ -122,7 +122,6 @@ D:\L4929\algoritmit\algoritmiui\algoritmiui\bin\x86\Debug\System.Xml.ReaderWrite
 D:\L4929\algoritmit\algoritmiui\algoritmiui\bin\x86\Debug\System.Xml.XDocument.dll
 D:\L4929\algoritmit\algoritmiui\algoritmiui\bin\x86\Debug\System.Xml.XmlDocument.dll
 D:\L4929\algoritmit\algoritmiui\algoritmiui\bin\x86\Debug\System.Xml.XmlSerializer.dll
-D:\L4929\algoritmit\algoritmiui\algoritmiui\obj\x86\Debug\algoritmiui.csprojResolveAssemblyReference.cache
 D:\L4929\algoritmit\algoritmiui\algoritmiui\obj\x86\Debug\App.g.i.cs
 D:\L4929\algoritmit\algoritmiui\algoritmiui\obj\x86\Debug\App.g.cs
 D:\L4929\algoritmit\algoritmiui\algoritmiui\obj\x86\Debug\MainPage.g.i.cs
@@ -210,3 +209,5 @@ D:\L4929\algoritmit\algoritmiui\algoritmiui\obj\x86\Debug\qualifiers.txt
 D:\L4929\algoritmit\algoritmiui\algoritmiui\obj\x86\Debug\qualifiers.txt.intermediate
 D:\L4929\algoritmit\algoritmiui\algoritmiui\obj\x86\Debug\MultipleQualifiersPerDimensionFound.txt
 D:\L4929\algoritmit\algoritmiui\algoritmiui\obj\x86\Debug\ProjectArchitectures.txt
+D:\L4929\algoritmit\algoritmiui\algoritmiui\bin\x86\Debug\Core\ForBundle\AppxManifest.xml
+D:\L4929\algoritmit\algoritmiui\algoritmiui\obj\x86\Debug\algoritmiui.csprojResolveAssemblyReference.cache
