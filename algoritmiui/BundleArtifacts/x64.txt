@@ -1,2 +1,2 @@
-MainPackage=D:\L4929\algoritmit\algoritmiui\algoritmiui\bin\x64\Debug\algoritmiui_1.0.0.0_x64_Debug.appx
-SymbolPackage=D:\L4929\algoritmit\algoritmiui\algoritmiui\AppPackages\algoritmiui_1.0.0.0_Debug_Test\algoritmiui_1.0.0.0_x64_Debug.appxsym
+MainPackage=D:\L4929\algoritmit\algoritmiui\algoritmiui\bin\x64\Release\algoritmiui_1.0.0.0_x64.appx
+SymbolPackage=D:\L4929\algoritmit\algoritmiui\algoritmiui\AppPackages\algoritmiui_1.0.0.0_Test\algoritmiui_1.0.0.0_x64.appxsym

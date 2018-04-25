@@ -48,6 +48,8 @@
             <Button x:Name="Btn_Clear" Content="Clear" HorizontalAlignment="Left" Margin="347,10,0,0" VerticalAlignment="Top" Click="Btn_Clear_Click"/>
         </Grid>
         <TextBox x:Name="TxtBox_InputNum" HorizontalAlignment="Left" Height="26" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="99"/>
-        <TextBlock x:Name="TxtBlock_Data" HorizontalAlignment="Left" Margin="10,573,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="137" Width="352"/>
+        <TextBlock x:Name="TxtBlock_DataSpe" HorizontalAlignment="Left" Margin="464,573,0,-52" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="199" Width="222"/>
+        <TextBlock x:Name="TxtBlock_DataMax" HorizontalAlignment="Left" Margin="10,573,0,-52" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="199" Width="222"/>
+        <TextBlock x:Name="TxtBlock_DataCur" HorizontalAlignment="Left" Margin="237,573,0,-52" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="199" Width="222"/>
     </Grid>
 </Page>

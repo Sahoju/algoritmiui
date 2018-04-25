@@ -32,9 +32,10 @@ namespace algoritmiui {
             Time = time;
         }
 
-        // constructor for just count
-        public Marker(int count) {
+        // constructor for getting the highest count and time from each test
+        public Marker(int count, long time) {
             IRCount = count;
+            Time = time;
         }
 
         public Marker(double x, double y) {
@@ -48,10 +49,5 @@ namespace algoritmiui {
             Time = time;
             Colon = rectum;
         }
-
-        private void this_PointerMoved(object sender, PointerRoutedEventArgs e) {
-
-        }
-
-    }
-}
+    } // class Marker
+} // namespace algoritmiui
