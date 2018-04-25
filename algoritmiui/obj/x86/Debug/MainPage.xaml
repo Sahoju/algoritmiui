@@ -8,11 +8,11 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock x:ConnectionId='1' x:Name="Millisecs" HorizontalAlignment="Left" Margin="343,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="32" Width="423"/>
+        <TextBlock x:ConnectionId='1' x:Name="Millisecs" HorizontalAlignment="Left" Margin="414,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="32" Width="352"/>
         <Grid HorizontalAlignment="Left" Height="720" VerticalAlignment="Top" Width="1280">
-            <Canvas x:ConnectionId='3' x:Name="Canvas_Graph" HorizontalAlignment="Left" Height="500" Margin="70,53,0,0" VerticalAlignment="Top" Width="700"/>
-            <Canvas x:ConnectionId='4' x:Name="Canvas_GraphBase" HorizontalAlignment="Left" Height="500" Margin="70,53,0,0" VerticalAlignment="Top" Width="700"/>
-            <Grid x:ConnectionId='5' x:Name="Grid_MarkerTextY" HorizontalAlignment="Left" Height="500" Margin="10,53,0,0" VerticalAlignment="Top" Width="60">
+            <Canvas x:ConnectionId='4' x:Name="Canvas_Graph" HorizontalAlignment="Left" Height="500" Margin="70,53,0,0" VerticalAlignment="Top" Width="700"/>
+            <Canvas x:ConnectionId='5' x:Name="Canvas_GraphBase" HorizontalAlignment="Left" Height="500" Margin="70,53,0,0" VerticalAlignment="Top" Width="700"                                              Background="#02FFFFFF"/>
+            <Grid x:ConnectionId='6' x:Name="Grid_MarkerTextY" HorizontalAlignment="Left" Height="500" Margin="10,53,0,0" VerticalAlignment="Top" Width="60">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="50"/>
@@ -26,7 +26,7 @@
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
             </Grid>
-            <Grid x:ConnectionId='6' x:Name="Grid_MarkerTextX" HorizontalAlignment="Left" Height="16" Margin="130,553,0,0" VerticalAlignment="Top" Width="700">
+            <Grid x:ConnectionId='7' x:Name="Grid_MarkerTextX" HorizontalAlignment="Left" Height="16" Margin="130,553,0,0" VerticalAlignment="Top" Width="700">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="70"/>
                     <ColumnDefinition Width="70"/>
@@ -40,13 +40,15 @@
                     <ColumnDefinition Width="70"/>
                 </Grid.ColumnDefinitions>
             </Grid>
-            <ComboBox x:ConnectionId='7' x:Name="CB_SortingAlgorithm" HorizontalAlignment="Left" Margin="120,10,0,0" VerticalAlignment="Top" Width="154" PlaceholderText="Select algorithm">
+            <ComboBox x:ConnectionId='8' x:Name="CB_SortingAlgorithm" HorizontalAlignment="Left" Margin="120,10,0,0" VerticalAlignment="Top" Width="154" PlaceholderText="Select algorithm">
                 <ComboBoxItem Content="Bubble sort"/>
                 <ComboBoxItem Content="Quick sort"/>
             </ComboBox>
-            <Button x:ConnectionId='8' x:Name="Btn_Sort" Content="Sort" HorizontalAlignment="Left" Margin="285,10,0,0" VerticalAlignment="Top"                       />
+            <Button x:ConnectionId='9' x:Name="Btn_Sort" Content="Sort" HorizontalAlignment="Left" Margin="285,10,0,0" VerticalAlignment="Top"                       />
+            <Button x:ConnectionId='10' x:Name="Btn_Clear" Content="Clear" HorizontalAlignment="Left" Margin="347,10,0,0" VerticalAlignment="Top"                        />
         </Grid>
         <TextBox x:ConnectionId='2' x:Name="TxtBox_InputNum" HorizontalAlignment="Left" Height="26" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="99"/>
+        <TextBlock x:ConnectionId='3' x:Name="TxtBlock_Data" HorizontalAlignment="Left" Margin="10,573,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="137" Width="352"/>
     </Grid>
 </Page>
 

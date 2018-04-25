@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Diagnostics;
+using Windows.UI.Input;
 using Windows.UI.Popups;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -40,6 +41,9 @@ namespace algoritmiui {
             // one marker to rule the highest size, count and time
             Marker markerKing = new Marker(0, 0, 0);
             markers[0].Add(markerKing);
+            // one marker for getting the count of BubbleSort
+            Marker markerBubble = new Marker(0);
+            markers[0].Add(markerBubble);
             // one marker for getting the count of QuickSort
             Marker markerQuick = new Marker(0);
             markers[0].Add(markerQuick);
@@ -76,7 +80,7 @@ namespace algoritmiui {
                 xMarkers.Add(textblock);
                 Grid_MarkerTextX.Children.Add(textblock);
             }
-
+            
             // create axles
             Line y_axle = new Line();
             Line x_axle = new Line();
@@ -167,7 +171,7 @@ namespace algoritmiui {
             for(int i = 0; i < markers.Count; i++) {
                 foreach(var marker in markers[i]) {
                     marker.LocY = -500 * ((double)marker.Time / (double)markers[0][0].Time) + 500;
-                    marker.LocX = 700 * ((double)marker.Count / (double)markers[0][0].Count);
+                    marker.LocX = 700 * ((double)marker.IRCount / (double)markers[0][0].IRCount);
 
                     // if the markers go below the x-axle or to the left of the y-axle, force them to the axles
                     /*
@@ -266,7 +270,7 @@ namespace algoritmiui {
         private async void ShowText(string text) {
             var dialog = new MessageDialog(text);
             var res = await dialog.ShowAsync();
-        }
+        } // private void DrawLines
 
         private void CheckMax(Marker marker) {
             // checks if the size of the array is the largest so far
@@ -274,8 +278,8 @@ namespace algoritmiui {
                 markers[0][0].Size = marker.Size;
             }
             // checks if the count of iterations/recursions is the largest so far
-            if (marker.Count > markers[0][0].Count) {
-                markers[0][0].Count = marker.Count;
+            if (marker.IRCount > markers[0][0].IRCount) {
+                markers[0][0].IRCount = marker.IRCount;
             }
             // checks if the time elapsed is the longest so far
             if (marker.Time > markers[0][0].Time) {
@@ -286,7 +290,7 @@ namespace algoritmiui {
             long data = 0;
             // changing texts of each x marker
             foreach (var textblock in xMarkers) {
-                data = (markers[0][0].Time / 10) * i;
+                data = (markers[0][0].IRCount / 10) * i;
                 textblock.Text = data.ToString();
                 i++;
             }
@@ -294,36 +298,95 @@ namespace algoritmiui {
 
             // changing texts of each y markers
             foreach (var textblock in yMarkers) {
-                data = (markers[0][0].Count / 10) * i;
+                data = (markers[0][0].Time / 10) * i;
                 textblock.Text = data.ToString();
                 i--;
             }
-        }
+        } // private void CheckMax
 
         private void Btn_Sort_Click(object sender, RoutedEventArgs e) {
             int.TryParse(TxtBox_InputNum.Text, out int amount);
 
             if (amount > 0) {
-                int type = 0;
                 var combo = CB_SortingAlgorithm;
                 var item = (ComboBoxItem)combo.SelectedItem;
                 switch (item.Content.ToString()) {
                     case "Bubble sort":
-                        type = 1;
-                        markers[type] = Sorter.BubbleSort(markers[type], amount);
-                        CheckMax(markers[type][markers[type].Count - 1]);
+                        markers[0][1].IRCount = 0;
+                        markers = Sorter.BubbleSort(markers, amount);
+                        CheckMax(markers[1][markers[1].Count - 1]);
                         Millisecs.Text = markers[1][markers[1].Count - 1].Time + " ms";
+                        TxtBlock_Data.Text = "Size: " + amount +
+                            "\nMax Count: " + markers[0][0].IRCount +
+                            "\nCount: " + markers[1][markers[1].Count - 1].IRCount +
+                            "\nList count: " + markers[1].Count;
                         break;
                     case "Quick sort":
                         markers = Sorter.QuickSort(markers, amount);
                         CheckMax(markers[2][markers[2].Count - 1]);
                         Millisecs.Text = markers[2][markers[2].Count - 1].Time + " ms";
-                        markers[0][1].Count = 0;
+                        markers[0][1].IRCount = 0;
+                        TxtBlock_Data.Text = "Size: " + amount +
+                            "\nMax Count: " + markers[0][0].IRCount +
+                            "\nCount: " + markers[0][1].IRCount +
+                            "\nList count: " + markers[2].Count;
                         break;
                 }
 
                 DrawMarkers();
             }
+        } // private void Btn_Sort_Click
+
+        private void Btn_Clear_Click(object sender, RoutedEventArgs e) {
+            Canvas_Graph.Children.Clear();
+            markers[0][0].Size = 0;
+            markers[0][0].IRCount = 0;
+            markers[0][0].Time = 0;
+            markers[1].Clear();
+            markers[2].Clear();
+
+            // resetting values of each x marker
+            foreach (var textblock in xMarkers) {
+                textblock.Text = "0";
+            }
+
+            // resetting values of each y markers
+            foreach (var textblock in yMarkers) {
+                textblock.Text = "0";
+            }
+
+            Millisecs.Text = "";
         }
+
+        private void Canvas_GraphBase_PointerMoved(object sender, PointerRoutedEventArgs e) {
+            PointerPoint point = e.GetCurrentPoint(Canvas_Graph);
+            var x = point.Position.X;
+            var y = point.Position.Y;
+            bool found = false;
+
+            for (int i = 1; i < 3; i++) {
+                foreach (var marker in markers[i]) {
+                    if (x > marker.LocX && x < marker.LocX + 8 && y > marker.LocY && y < marker.LocY + 8) {
+                        Canvas_Graph.Children.RemoveAt(Canvas_Graph.Children.Count - 1);
+                        Ellipse ellipse = new Ellipse();
+                        ellipse.Width = 16;
+                        ellipse.Height = 16;
+                        ellipse.Fill = new SolidColorBrush(marker.Colon);
+                        Canvas.SetTop(ellipse, marker.LocY - 4);
+                        Canvas.SetLeft(ellipse, marker.LocX - 4);
+                        Canvas_Graph.Children.Add(ellipse);
+                        
+                        Millisecs.Text = marker.Size + " " + marker.IRCount + " " + marker.Time;
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == true) {
+                    break;
+                }
+            }
+
+            TxtBlock_Data.Text = "X: " + x + "\nY: " + y;
+        } // private void Canvas_GraphBase_PointerMoved
     } // public sealed partial class MainPage : Page
 } // namespace algoritmiui

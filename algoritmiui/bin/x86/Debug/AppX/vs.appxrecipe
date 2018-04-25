@@ -31,13 +31,13 @@
     <AppXManifest Include="D:\L4929\algoritmit\algoritmiui\algoritmiui\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-04-23T11:46:04.166</Modified>
+      <Modified>2018-04-24T16:25:12.230</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="D:\L4929\algoritmit\algoritmiui\algoritmiui\bin\x86\Debug\algoritmiui.exe">
       <PackagePath>entrypoint\algoritmiui.exe</PackagePath>
-      <Modified>2018-04-23T11:46:03.766</Modified>
+      <Modified>2018-04-24T16:25:12.048</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\L4929\.nuget\packages\Microsoft.CSharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -535,7 +535,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\L4929\algoritmit\algoritmiui\algoritmiui\bin\x86\Debug\algoritmiui.xr.xml">
       <PackagePath>algoritmiui.xr.xml</PackagePath>
-      <Modified>2018-04-23T11:46:03.659</Modified>
+      <Modified>2018-04-24T15:57:00.915</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.15063.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -544,11 +544,11 @@
     <AppxPackagedFile Include="D:\L4929\algoritmit\algoritmiui\algoritmiui\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-04-23T11:46:04.047</Modified>
+      <Modified>2018-04-24T16:07:04.605</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\L4929\algoritmit\algoritmiui\algoritmiui\bin\x86\Debug\Core\algoritmiui.exe">
       <PackagePath>algoritmiui.exe</PackagePath>
-      <Modified>2018-04-23T11:46:04.164</Modified>
+      <Modified>2018-04-24T16:25:12.224</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

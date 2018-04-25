@@ -18,7 +18,7 @@ using Windows.UI;
 
 namespace algoritmiui {
     class Marker {
-        public int Count { get; set; }
+        public int IRCount { get; set; }
         public int Size { get; set; }
         public long Time { get; set; }
         public Color Colon { get; set; }
@@ -28,20 +28,30 @@ namespace algoritmiui {
         // constructor for largest size, count and time
         public Marker(int size, int count, long time) {
             Size = size;
-            Count = count;
+            IRCount = count;
             Time = time;
         }
 
         // constructor for just count
         public Marker(int count) {
-            Count = count;
+            IRCount = count;
+        }
+
+        public Marker(double x, double y) {
+            LocX = x;
+            LocY = y;
         }
 
         public Marker(int size, int count, long time, Color rectum) {
             Size = size;
-            Count = count;
+            IRCount = count;
             Time = time;
             Colon = rectum;
         }
+
+        private void this_PointerMoved(object sender, PointerRoutedEventArgs e) {
+
+        }
+
     }
 }

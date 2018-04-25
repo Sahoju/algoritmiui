@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using Windows.UI;
+using algoritmiui;
 
 namespace algoritmiui {
     static class Sorter {
@@ -24,9 +25,9 @@ namespace algoritmiui {
             return intarray;
         } // private int[] Generate
 
-        public static List<Marker> BubbleSort(List<Marker> markers, int amount) {
-            int[] intarray = Generate(amount);
+        public static List<List<Marker>> BubbleSort(List<List<Marker>> markers, int amount) {
             int count = 0;
+            int[] intarray = Generate(amount);
             int temp;
             int everyMs = 5;
             long previousElapsedMilliseconds = 0;
@@ -61,7 +62,7 @@ namespace algoritmiui {
                 // in the graph those markers show up on top of each other, not making it a smooth line
                 if (stopwatch.ElapsedMilliseconds % everyMs == 0 && previousElapsedMilliseconds != stopwatch.ElapsedMilliseconds) {
                     Marker marker = new Marker(intarray.Length, count, stopwatch.ElapsedMilliseconds, Colors.SteelBlue);
-                    markers.Add(marker);
+                    markers[1].Add(marker);
                     previousElapsedMilliseconds = stopwatch.ElapsedMilliseconds;
                 }
                 stopwatch.Start();
@@ -69,12 +70,16 @@ namespace algoritmiui {
 
             stopwatch.Stop();
 
+            if (count > markers[0][0].IRCount) {
+                markers[0][0].IRCount = count;
+            }
+
             return markers;
         } // private void Btn_BubbleSort_Click
 
         public static List<List<Marker>> QuickSort(List<List<Marker>> markers, int amount) {
             int[] intarray = Generate(amount);
-            float everyMs = 0.5f;
+            float everyMs = 1;
             long previousElapsedMilliseconds = 0;
             
             /*
@@ -92,6 +97,10 @@ namespace algoritmiui {
             stopwatch.Start();
             markers = SortQuickly(intarray, 0, intarray.Length - 1, markers, everyMs, previousElapsedMilliseconds);
             stopwatch.Stop();
+
+            if (markers[0][1].IRCount > markers[0][0].IRCount) {
+                markers[0][0].IRCount = markers[0][1].IRCount;
+            }
 
             return markers;
         } // private void Btn_QuickSort_Click
@@ -129,9 +138,9 @@ namespace algoritmiui {
                     }
                 } // while (i <= j)
 
-                markers[0][1].Count++;
+                markers[0][1].IRCount++;
                 if (stopwatch.ElapsedMilliseconds % everyMs == 0 && stopwatch.ElapsedMilliseconds != previousElapsedMilliseconds) {
-                    Marker marker = new Marker(intarray.Length, markers[0][1].Count, stopwatch.ElapsedMilliseconds, Colors.OrangeRed);
+                    Marker marker = new Marker(intarray.Length, markers[0][1].IRCount, stopwatch.ElapsedMilliseconds, Colors.OrangeRed);
                     markers[2].Add(marker);
                     previousElapsedMilliseconds = stopwatch.ElapsedMilliseconds;
                 }

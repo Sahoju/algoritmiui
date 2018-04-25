@@ -8,10 +8,10 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock x:Name="Millisecs" HorizontalAlignment="Left" Margin="343,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="32" Width="423"/>
+        <TextBlock x:Name="Millisecs" HorizontalAlignment="Left" Margin="414,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="32" Width="352"/>
         <Grid HorizontalAlignment="Left" Height="720" VerticalAlignment="Top" Width="1280">
             <Canvas x:Name="Canvas_Graph" HorizontalAlignment="Left" Height="500" Margin="70,53,0,0" VerticalAlignment="Top" Width="700"/>
-            <Canvas x:Name="Canvas_GraphBase" HorizontalAlignment="Left" Height="500" Margin="70,53,0,0" VerticalAlignment="Top" Width="700"/>
+            <Canvas x:Name="Canvas_GraphBase" HorizontalAlignment="Left" Height="500" Margin="70,53,0,0" VerticalAlignment="Top" Width="700" PointerMoved="Canvas_GraphBase_PointerMoved" Background="#02FFFFFF"/>
             <Grid x:Name="Grid_MarkerTextY" HorizontalAlignment="Left" Height="500" Margin="10,53,0,0" VerticalAlignment="Top" Width="60">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
@@ -45,7 +45,9 @@
                 <ComboBoxItem Content="Quick sort"/>
             </ComboBox>
             <Button x:Name="Btn_Sort" Content="Sort" HorizontalAlignment="Left" Margin="285,10,0,0" VerticalAlignment="Top" Click="Btn_Sort_Click"/>
+            <Button x:Name="Btn_Clear" Content="Clear" HorizontalAlignment="Left" Margin="347,10,0,0" VerticalAlignment="Top" Click="Btn_Clear_Click"/>
         </Grid>
         <TextBox x:Name="TxtBox_InputNum" HorizontalAlignment="Left" Height="26" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="99"/>
+        <TextBlock x:Name="TxtBlock_Data" HorizontalAlignment="Left" Margin="10,573,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="137" Width="352"/>
     </Grid>
 </Page>
