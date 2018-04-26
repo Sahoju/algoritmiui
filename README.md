@@ -1,4 +1,4 @@
-### Käyttöliittymä lajittelualgoritmien tehokkuuden mittaamiselle
+# Käyttöliittymä lajittelualgoritmien tehokkuuden mittaamiselle
 
 ## Suunnitellut toiminnot
 
@@ -33,4 +33,4 @@
 
 ## Versio 0.1
 
-![Versio 0.1](http://student.labranet.jamk.fi/~L4929/kayttoliittymat/01.PNG)
+![asd](http://student.labranet.jamk.fi/~L4929/kayttoliittymat/01.PNG)
