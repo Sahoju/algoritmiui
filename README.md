@@ -23,3 +23,14 @@
 * Koordinaatiston tyhjennys
 * Kursorin vietäessä kuvion pisteen päälle tulee esille sen pisteen data (kierrosten määrä ja aika siinä vaiheessa ajoa)
 * Virheiden ehkäisyä
+
+## Toteuttamatta jääneet toiminnot
+
+* Enemmän kuin kaksi lajittelualgoritmia
+* x- ja y-akselien yksiköiden vaihto (taulukon koko, kierrosten määrä, aika, prosessorin käyttö, muistin käyttö)
+* Tuloksien tallennus tietokantaan
+* Välilehti, jossa voi verrata tietokantaan tallennettuja tuloksia
+
+## Versio 0.1
+
+![Versio 0.1](http://student.labranet.jamk.fi/~L4929/kayttoliittymat/01.PNG)
