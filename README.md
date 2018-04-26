@@ -22,7 +22,7 @@
 * Tekstikentät ajosta saadusta datasta
 * Koordinaatiston tyhjennys
 * Kursorin vietäessä kuvion pisteen päälle tulee esille sen pisteen data (kierrosten määrä ja aika siinä vaiheessa ajoa)
-* Virheiden ehkäisyä
+* Virheiden käsittely
 
 ## Toteuttamatta jääneet toiminnot
 
@@ -47,5 +47,12 @@
 
 ### Monta käyrää
 
-![Monta käyrää](/02_monta_kuviota.PNG)
+![Monta käyrää](/03_monta_kuviota.PNG)
+
+## Ongelmat ja bugit
+
+* Quick sortattu kuvio ei näytä oikealta
+* Käyrä ei muutenkaan näytä ollenkaan samalta, kuin mitä muissa...
+
+## Pohdinta
 
