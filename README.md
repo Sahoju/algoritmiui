@@ -33,4 +33,4 @@
 
 ## Versio 0.1
 
-![asd](http://student.labranet.jamk.fi/~L4929/kayttoliittymat/01.PNG)
+![asd](/01.PNG)
