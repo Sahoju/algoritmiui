@@ -33,4 +33,19 @@
 
 ## Versio 0.1
 
-![asd](/01.PNG)
+![Versio 0.1](/01.PNG)
+
+## Versio 0.2 (nykyinen)
+
+### Alkunäkymä
+
+![Alkunäkymä](/01_alkunakyma.PNG)
+
+### Piirretty käyrä
+
+![Piirretty käyrä](/02_kuvio.PNG)
+
+### Monta käyrää
+
+![Monta käyrää](/02_monta_kuviota.PNG)
+
